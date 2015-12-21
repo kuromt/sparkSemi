@@ -43,7 +43,7 @@ mlパッケージのAPIの種類
 
 DataFrameを変換して新しいDataFrameを作るもの。特徴変換やモデルがこれに該当する。transform()がある。
 
-ML modelは特徴を持つDataFrameをpredictionsを持つDataFrameに変換するTransformer
+ML modelは特徴を持つDataFrameをpredictionsを持つDataFrameに変換するTransformer。
 
 #### Estimators
 
@@ -63,19 +63,24 @@ Transformerを作るためのアルゴリズム。機械学習アルゴリズム
 
 パイプラインの内部処理
 ===
-### TransformerもEstimatorもそれぞれ一つのstageに相当する。
-#### つまり、実行するたびにshuffleが実行されるということか？このstageがSparkのjobのstageと同一かは不明。
-### fit()を実行するとパイプラインの実行が開始される。
-### PipelineはEstimatorでありPipelineModelと呼ばれるTransformerを作る。
-#### EstimatorはTransformerを作るものであることを思い出そう。
-### パイプラインはlinearだけではなくDAGも形成できる
-#### linearの場合は各stageは順番に、DAGの場合はトポロジカルオーダーで実行される（詳しい実装はコードを見ないと分からない）
-### 処理のパラメータの与え方
-#### TransformとEstimatorはパラメータを指定するための統合されたAPIとしてParamを持つ
-##### 内部は"parameter"と"value"のペア
-#### fit()やtransform()にParamMapを与える
-##### ParamMapは名前の通りParamのMap
-##### logistic regressionを例にすると、ParamMap(lr1.maxIter -> 10, lr2.maxIter -> 20)という形で与える。
+
+TransformerもEstimatorもそれぞれ一つのstageに相当する。
+* つまり、実行するたびにshuffleが実行されるということか？このstageがSparkのjobのstageと同一かは不明。
+
+fit()を実行するとパイプラインの実行が開始される。
+
+PipelineはEstimatorでありPipelineModelと呼ばれるTransformerを作る。
+* EstimatorはTransformerを作るものであることを思い出そう。
+
+PipelineはlinearだけではなくDAGも形成できる
+* linearの場合は各stageは順番に、DAGの場合はトポロジカルオーダーで実行される（詳しい実装はコードを見ないと分からない）
+
+ 処理のパラメータの与え方
+* TransformとEstimatorはパラメータを指定するための統合されたAPIとしてParamを持つ
+    * 内部は"parameter"と"value"のペア
+* fit()やtransform()にParamMapを与える
+    * ParamMapは名前の通りParamのMap
+    *  logistic regressionを例にすると、ParamMap(lr1.maxIter -> 10, lr2.maxIter -> 20)という形で与える。
 																
 
 mlパッケージのアルゴリズム
