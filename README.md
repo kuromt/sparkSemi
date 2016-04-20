@@ -67,7 +67,7 @@ Transformerを作るためのアルゴリズム。機械学習アルゴリズム
 ===
 
 TransformerもEstimatorもそれぞれ一つのstageに相当する。
-* つまり、実行するたびにshuffleが実行されるということか？このstageがSparkのjobのstageと同一かは不明。
+* このstageはSparkのstageとは別。
 
 fit()を実行するとパイプラインの実行が開始される。
 
